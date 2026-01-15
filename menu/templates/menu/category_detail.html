@@ -1,0 +1,43 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ category.name }}</h1>
+
+    {% if category.image %}
+        <div class="category-detail-image">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+        </div>
+    {% endif %}
+
+    {% if category.description %}
+        <p class="category-description">
+            {{ category.description }}
+        </p>
+    {% endif %}
+
+    <h2>Страви в цій категорії</h2>
+
+    {% if dishes %}
+        <div class="menu-grid">
+            {% for dish in dishes %}
+                <a href="{% url 'menu:dish_detail' dish.pk %}" class="card-link">
+                    <div class="card">
+                        {% if dish.image %}
+                            <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
+                        {% endif %}
+                        <h3>{{ dish.name }}</h3>
+                        <p>{{ dish.description|truncatewords:12 }}</p>
+                        <p><strong>Вага порції:</strong> {{ dish.weight }} г</p>
+                        <div class="price">{{ dish.price }} грн</div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>У цій категорії поки немає страв.</p>
+    {% endif %}
+
+    <a href="{% url 'menu:categories_list' %}" class="btn-back">← Назад до категорій</a>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+<form method="get" class="search-form">
+    <input
+        type="text"
+        name="q"
+        placeholder="Пошук страв..."
+        value="{{ query }}"
+    >
+
+    <select name="category">
+        <option value="">Усі категорії</option>
+        {% for cat in categories %}
+            <option value="{{ cat.id }}"
+                {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}
+            >
+                {{ cat.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">🔍</button>
+</form>
+
+<div class="container">
+    <h1>Меню</h1>
+
+    <div class="menu-grid">
+        {% for dish in dishes %}
+        <a href="{% url 'menu:dish_detail' dish.pk %}" class="card-link">
+            <div class="card">
+                {% if dish.image %}
+                    <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
+                {% endif %}
+                <h3>{{ dish.name }}</h3>
+                <p>{{ dish.description|truncatewords:12 }}</p>
+                <div class="price">
+                    {{ dish.price }} грн · {{ dish.portion_size }} {{ dish.unit }}
+                </div>                
+                
+            </div>
+        </a>
+        {% endfor %}
+    </div>        
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Ресторанне меню</h1>
+        <p>Найкращі страви української та європейської кухні</p>
+
+        <div class="hero-buttons">
+            <a href="{% url 'menu:menu_index' %}" class="btn">Переглянути меню</a>
+            <a href="{% url 'menu:categories_list' %}" class="btn btn-outline">Категорії</a>
+        </div>
+    </div>
+</section>
+
+
+<section class="container">
+    <h2>Популярні страви</h2>
+
+    <div class="menu-grid">
+        {% for dish in dishes %}
+        <div class="card">
+            <h3>{{ dish.name }}</h3>
+            <p>{{ dish.description|truncatewords:15 }}</p>
+            <div class="price">{{ dish.price }} грн</div>
+        </div>
+        {% empty %}
+        <p>Поки що немає страв</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

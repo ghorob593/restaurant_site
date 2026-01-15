@@ -1,0 +1,19 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+<h1>Категорії</h1>
+
+<div class="menu-grid">
+    {% for category in categories %}
+        <a href="{% url 'menu:category_detail' category.pk %}" class="card-link">
+            <div class="card">
+                {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                {% endif %}
+                <h3>{{ category.name }}</h3>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

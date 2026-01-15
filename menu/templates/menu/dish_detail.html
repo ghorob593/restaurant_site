@@ -1,0 +1,18 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="dish-detail">
+        {% if dish.image %}
+            <img src="{{ dish.image.url }}" alt="{{ dish.name }}" class="dish-detail-img">
+        {% endif %}
+    
+        <h1>{{ dish.name }}</h1>
+        <p>{{ dish.description }}</p>
+        <p><strong>Вага порції:</strong> {{ dish.weight }} г</p>
+        <div class="price">{{ dish.price }} грн</div>
+    </div>    
+
+    <a href="{% url 'menu:menu_index' %}" class="btn-back">← Назад до меню</a>
+</div>
+{% endblock %}
